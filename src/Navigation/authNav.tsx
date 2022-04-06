@@ -13,4 +13,4 @@ const AuthNav: FC = () => {
   )
 }
 
-export default AuthNav
+export default AuthNav;
