@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import fireDB from "../../firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import Button from '../../Components/Button';
 
 const RegisterScreen: FC = () => {
 
@@ -10,8 +10,6 @@ const RegisterScreen: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const auth = getAuth();
-
-  console.log(fireDB);
 
   const register = async () => {
     if (name && email && password) {
@@ -26,9 +24,10 @@ const RegisterScreen: FC = () => {
   return (
     <View style={styles.container}>
       <Text>Sign Up</Text>
-      <TextInput placeholder='Name' value={name} />
-      <TextInput placeholder='Email' value={email} />
-      <TextInput placeholder='Password' value={password} />
+      <TextInput placeholder='Name' keyboardType='default' value={name} onChangeText={text => setName(text)} />
+      <TextInput placeholder='Email' keyboardType='default' value={email} onChangeText={text => setEmail(text)} />
+      <TextInput placeholder='Password' keyboardType='default' value={password} secureTextEntry onChangeText={text => setPassword(text)} />
+      <Button title="Sign Up" onPress={register} />
     </View>
   )
 }
