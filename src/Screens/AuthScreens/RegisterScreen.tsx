@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput } from 'react-native';
 import fireDB from "../../firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from 'firebase/firestore';
 import Button from '../../Components/Button';
 
 const RegisterScreen: FC = () => {
@@ -15,6 +16,13 @@ const RegisterScreen: FC = () => {
     if (name && email && password) {
       try {
         const userAuth = await createUserWithEmailAndPassword(auth, email, password);
+        const docRef = doc(fireDB, "users", `${userAuth.user.uid}`);
+        const userInfo = {
+          id: userAuth.user.uid,
+          name
+        };
+        await setDoc(docRef, userInfo);
+        console.log("Registered");
       } catch (err) {
         Alert.alert(`Registration error: ${err}`);
       }
