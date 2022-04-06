@@ -1,20 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import MainNav from "./src/Navigation/mainNav";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>This is my insta-clone app</Text>
-      <StatusBar style="auto" />
-    </View>
+    <MainNav />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
