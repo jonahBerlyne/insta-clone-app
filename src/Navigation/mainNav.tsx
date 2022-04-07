@@ -11,9 +11,7 @@ const MainNav: FC = () => {
 
   const checkUser = () => {
     onAuthStateChanged(auth, _user => {
-      if (_user) {
-        setUser(_user);
-      }
+      _user ? setUser(_user) : setUser(null);
     });
   }
 
