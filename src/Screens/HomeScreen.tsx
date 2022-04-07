@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity } from 'reac
 import { Button } from '../Components';
 import { getAuth, signOut } from 'firebase/auth';
 
-const HomeScreen: FC = () => {
+const HomeScreen: FC = ({ navigation }) => {
 
   const auth = getAuth();
 
@@ -17,8 +17,11 @@ const HomeScreen: FC = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
      <Text>Home Screen</Text>
+     <TouchableOpacity onPress={() => navigation.navigate("selectpost")}>
+       <Text>Post an Image</Text>
+     </TouchableOpacity>
      <Text>Log Out:</Text>
      <Button title="Logout" onPress={logout} />
     </View>
@@ -26,3 +29,11 @@ const HomeScreen: FC = () => {
 }
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
