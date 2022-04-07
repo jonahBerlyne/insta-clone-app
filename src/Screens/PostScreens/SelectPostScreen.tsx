@@ -18,8 +18,8 @@ const SelectPostScreen: FC = ({ navigation }) => {
             navigation.navigate("home");
             return;
           }
-          setShowView(true);
         }
+        setShowView(true);
       } catch (err) {
         Alert.alert(`Permissions error: ${err}`);
       }
@@ -71,7 +71,7 @@ const SelectPostScreen: FC = ({ navigation }) => {
 
   return (
     <View style={showView ? styles.container : {display: "none"}}>
-     <Text>SelectPostScreen</Text>
+     <Text>New post</Text>
      <Button title="Take a Picture" onPress={takePicture} />
      <Button title="Choose a Picture" onPress={pickImage} />
      {image !== "" && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
