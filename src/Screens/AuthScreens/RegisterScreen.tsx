@@ -1,11 +1,11 @@
 import React, { FC, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity } from 'react-native';
 import fireDB from "../../firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
 import Button from '../../Components/Button';
 
-const RegisterScreen: FC = () => {
+const RegisterScreen: FC = ({ navigation }) => {
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -36,6 +36,12 @@ const RegisterScreen: FC = () => {
       <TextInput placeholder='Email' keyboardType='default' value={email} onChangeText={text => setEmail(text)} />
       <TextInput placeholder='Password' keyboardType='default' value={password} secureTextEntry onChangeText={text => setPassword(text)} />
       <Button title="Sign Up" onPress={register} />
+      <View>
+        <Text>Already Have an Account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("login")}>
+          <Text>Login Here</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
