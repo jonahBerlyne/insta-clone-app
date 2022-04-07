@@ -10,16 +10,18 @@ const SelectPostScreen: FC = ({ navigation }) => {
 
   useEffect(() => {
     (async () => {
-      if (Platform.OS === 'ios') {
-        const cameraResult = await ImagePicker.requestCameraPermissionsAsync();
-        const libResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (cameraResult.granted === false && libResult.granted === false) {
-          navigation.navigate("home");
-          return;
-        }
-        if (cameraResult.granted || libResult.granted) {
+      try {
+        if (Platform.OS === 'ios') {
+          const cameraResult = await ImagePicker.requestCameraPermissionsAsync();
+          const libResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (cameraResult.granted === false && libResult.granted === false) {
+            navigation.navigate("home");
+            return;
+          }
           setShowView(true);
         }
+      } catch (err) {
+        Alert.alert(`Permissions error: ${err}`);
       }
     })();
   }, []);
