@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from '../Screens/AuthScreens/LoginScreen';
-import RegisterScreen from '../Screens/AuthScreens/RegisterScreen';
+import { LoginScreen, RegisterScreen } from '../Screens';
 const {Navigator, Screen} = createNativeStackNavigator();
 
 const AuthNav: FC = () => {
@@ -10,7 +9,7 @@ const AuthNav: FC = () => {
      <Screen name="login" component={LoginScreen} />
      <Screen name="register" component={RegisterScreen} />
     </Navigator>
-  )
+  );
 }
 
 export default AuthNav;
