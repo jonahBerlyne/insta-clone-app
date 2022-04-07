@@ -5,7 +5,7 @@ import { Button } from '../../Components';
 
 const SelectPostScreen: FC = ({ navigation }) => {
 
-  const [image, setImage] = useState<any>(null);
+  const [image, setImage] = useState<string>("");
   const [showView, setShowView] = useState<boolean>(false);
 
   useEffect(() => {
@@ -32,7 +32,6 @@ const SelectPostScreen: FC = ({ navigation }) => {
           return;
         }
       }
-
       let result = await ImagePicker.launchCameraAsync();
       console.log(result);
 
@@ -73,7 +72,7 @@ const SelectPostScreen: FC = ({ navigation }) => {
      <Text>SelectPostScreen</Text>
      <Button title="Take a Picture" onPress={takePicture} />
      <Button title="Choose a Picture" onPress={pickImage} />
-     {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+     {image !== "" && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
     </View>
   );
 }
