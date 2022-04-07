@@ -6,6 +6,7 @@ import { Button } from '../../Components';
 const SelectPostScreen: FC = ({ navigation }) => {
 
   const [image, setImage] = useState<any>(null);
+  const [showView, setShowView] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -15,6 +16,9 @@ const SelectPostScreen: FC = ({ navigation }) => {
         if (cameraResult.granted === false && libResult.granted === false) {
           navigation.navigate("home");
           return;
+        }
+        if (cameraResult.granted || libResult.granted) {
+          setShowView(true);
         }
       }
     })();
@@ -65,7 +69,7 @@ const SelectPostScreen: FC = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={showView ? styles.container : {display: "none"}}>
      <Text>SelectPostScreen</Text>
      <Button title="Take a Picture" onPress={takePicture} />
      <Button title="Choose a Picture" onPress={pickImage} />
