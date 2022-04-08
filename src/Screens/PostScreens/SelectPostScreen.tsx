@@ -1,9 +1,9 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, Image, Linking, Platform } from 'react-native';
 import * as ImagePicker from "expo-image-picker";
 import { Button } from '../../Components';
 
-const SelectPostScreen: FC = ({ navigation }) => {
+const SelectPostScreen = ({ navigation }: {navigation: any}): ReactElement => {
 
   const [image, setImage] = useState<string>("");
   const [showView, setShowView] = useState<boolean>(false);
@@ -69,12 +69,19 @@ const SelectPostScreen: FC = ({ navigation }) => {
     }
   }
 
+  useEffect(() => {
+    if (image !== "") {
+      navigation.navigate("sharepost", {
+        image: image
+      });
+    }
+  }, [image]);
+
   return (
     <View style={showView ? styles.container : {display: "none"}}>
-     <Text>New post</Text>
+     <Text>New post {typeof navigation}</Text>
      <Button title="Take a Picture" onPress={takePicture} />
      <Button title="Choose a Picture" onPress={pickImage} />
-     {image !== "" && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
     </View>
   );
 }
