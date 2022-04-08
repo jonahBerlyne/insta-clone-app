@@ -1,9 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity } from 'react-native';
 import { Button } from '../Components';
 import { getAuth, signOut } from 'firebase/auth';
 
-const HomeScreen: FC = ({ navigation }) => {
+const HomeScreen = ({ navigation }: {navigation: any}): ReactElement => {
 
   const auth = getAuth();
 

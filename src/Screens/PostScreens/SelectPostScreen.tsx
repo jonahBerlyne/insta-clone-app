@@ -72,7 +72,7 @@ const SelectPostScreen = ({ navigation }: {navigation: any}): ReactElement => {
   useEffect(() => {
     if (image !== "") {
       navigation.navigate("sharepost", {
-        image: image
+        image
       });
     }
   }, [image]);
