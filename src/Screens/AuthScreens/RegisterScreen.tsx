@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import fireDB from "../../firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
@@ -30,19 +30,21 @@ const RegisterScreen: FC = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Sign Up</Text>
-      <TextInput placeholder='Name' keyboardType='default' value={name} onChangeText={text => setName(text)} />
-      <TextInput placeholder='Email' keyboardType='default' value={email} onChangeText={text => setEmail(text)} />
-      <TextInput placeholder='Password' keyboardType='default' value={password} secureTextEntry onChangeText={text => setPassword(text)} />
-      <Button title="Sign Up" onPress={register} />
-      <View>
-        <Text>Already Have an Account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("login")}>
-          <Text>Login Here</Text>
-        </TouchableOpacity>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text>Sign Up</Text>
+        <TextInput placeholder='Name' keyboardType='default' value={name} onChangeText={text => setName(text)} />
+        <TextInput placeholder='Email' keyboardType='default' value={email} onChangeText={text => setEmail(text)} />
+        <TextInput placeholder='Password' keyboardType='default' value={password} secureTextEntry onChangeText={text => setPassword(text)} />
+        <Button title="Sign Up" onPress={register} />
+        <View>
+          <Text>Already Have an Account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("login")}>
+            <Text>Login Here</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   )
 }
 

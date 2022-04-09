@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import fireDB from "../../firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import Button from '../../Components/Button';
@@ -22,18 +22,20 @@ const LoginScreen: FC = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Login</Text>
-      <TextInput placeholder='Email' keyboardType='default' value={email} onChangeText={text => setEmail(text)} />
-      <TextInput placeholder='Password' keyboardType='default' value={password} secureTextEntry onChangeText={text => setPassword(text)} />
-      <Button title="Login" onPress={login} />
-      <View>
-        <Text>Don't Have an Account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("register")}>
-          <Text>Sign Up Here</Text>
-        </TouchableOpacity>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text>Login</Text>
+        <TextInput placeholder='Email' keyboardType='default' value={email} onChangeText={text => setEmail(text)} />
+        <TextInput placeholder='Password' keyboardType='default' value={password} secureTextEntry onChangeText={text => setPassword(text)} />
+        <Button title="Login" onPress={login} />
+        <View>
+          <Text>Don't Have an Account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("register")}>
+            <Text>Sign Up Here</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
