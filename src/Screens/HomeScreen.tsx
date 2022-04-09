@@ -1,6 +1,6 @@
 import React, { FC, useState, ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity } from 'react-native';
-import { Button } from '../Components';
+import { Button, Header } from '../Components';
 import { getAuth, signOut } from 'firebase/auth';
 
 const HomeScreen = ({ navigation }: {navigation: any}): ReactElement => {
