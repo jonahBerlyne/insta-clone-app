@@ -3,33 +3,52 @@ import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Button } from '../../Components';
+import fireDB from '../../firebaseConfig';
+import { doc, setDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 const SharePostScreen = ({ route, navigation }: {route: any, navigation: any}): ReactElement => {
   const { image } = route.params;
   const [caption, setCaption] = useState<string>("");
+  const auth = getAuth();
 
   const sharePost = async () => {
-    navigation.navigate("home");
+    if (caption === "") return;
+    try {
+      const userId: string = auth.currentUser!.uid;
+      const date: object = new Date();
+      const post: object = {
+        caption,
+        date,
+        image,
+      };
+      const docRef = doc(fireDB, "users", userId, "posts", `${date}`);
+      await setDoc(docRef, post);
+      Alert.alert("Posted");
+      navigation.navigate("home");
+    } catch (err) {
+      Alert.alert(`Sharing error: ${err}`);
+    }
   }
 
   return (
-    <View style={styles.container}>
-     <Text>SharePostScreen</Text>
-     <View style={styles.post}>
-      {image !== "" && <Image source={{ uri: image }} style={{ width: 200, height: 200, flex: 1 }}  />}
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <TextInput 
-          multiline={true}
-          numberOfLines={4}
-          onChangeText={text => setCaption(text)}
-          value={caption}
-          placeholder="Write your caption here..."
-          style={{flex: 1}}
-        />
-      </TouchableWithoutFeedback>
-     </View>
-     <Button title="Share Post" onPress={() => sharePost()} />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+      <Text>Share Post Screen</Text>
+      <View style={styles.post}>
+        {image !== "" && <Image source={{ uri: image }} style={{ width: 200, height: 200, flex: 1 }}  />}
+          <TextInput 
+            multiline={true}
+            numberOfLines={4}
+            onChangeText={text => setCaption(text)}
+            value={caption}
+            placeholder="Write your caption here..."
+            style={{flex: 1}}
+          />
+      </View>
+      <Button title="Share Post" onPress={() => sharePost()} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
