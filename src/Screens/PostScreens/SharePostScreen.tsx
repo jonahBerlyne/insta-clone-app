@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
-import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Button } from '../../Components';
 
 const SharePostScreen = ({ route, navigation }: {route: any, navigation: any}): ReactElement => {
@@ -17,14 +17,16 @@ const SharePostScreen = ({ route, navigation }: {route: any, navigation: any}): 
      <Text>SharePostScreen</Text>
      <View style={styles.post}>
       {image !== "" && <Image source={{ uri: image }} style={{ width: 200, height: 200, flex: 1 }}  />}
-      <TextInput 
-        multiline={true}
-        numberOfLines={4}
-        onChangeText={text => setCaption(text)}
-        value={caption}
-        placeholder="Write your caption here..."
-        style={{flex: 1}}
-      />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TextInput 
+          multiline={true}
+          numberOfLines={4}
+          onChangeText={text => setCaption(text)}
+          value={caption}
+          placeholder="Write your caption here..."
+          style={{flex: 1}}
+        />
+      </TouchableWithoutFeedback>
      </View>
      <Button title="Share Post" onPress={() => sharePost()} />
     </View>
