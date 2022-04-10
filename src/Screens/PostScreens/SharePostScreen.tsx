@@ -20,7 +20,7 @@ const SharePostScreen = ({ route }: {route: any}): ReactElement => {
       const date: object = new Date();
       const post: object = {
         caption,
-        date,
+        date: `${date}`,
         image,
       };
       const docRef = doc(fireDB, "users", userId, "posts", `${date}`);
