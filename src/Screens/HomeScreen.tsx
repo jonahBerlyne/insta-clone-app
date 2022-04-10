@@ -2,6 +2,7 @@ import React, { FC, useState, ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity } from 'react-native';
 import { Button, Header } from '../Components';
 import { getAuth, signOut } from 'firebase/auth';
+import { Post } from '../Components';
 
 const HomeScreen = ({ navigation }: {navigation: any}): ReactElement => {
 
