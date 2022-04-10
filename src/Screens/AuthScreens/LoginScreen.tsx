@@ -1,11 +1,13 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import fireDB from "../../firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import Button from '../../Components/Button';
+import { useNavigation } from "@react-navigation/native";
 
-const LoginScreen: FC = ({ navigation }) => {
+const LoginScreen = (): ReactElement => {
 
+  const navigation = useNavigation<any>();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const auth = getAuth();

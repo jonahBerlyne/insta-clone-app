@@ -1,14 +1,15 @@
 import React, { FC, useState } from 'react';
 import { ReactElement } from 'react';
-import { ReactNode } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Button } from '../../Components';
 import fireDB from '../../firebaseConfig';
 import { doc, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { useNavigation } from "@react-navigation/native";
 
-const SharePostScreen = ({ route, navigation }: {route: any, navigation: any}): ReactElement => {
+const SharePostScreen = ({ route }: {route: any}): ReactElement => {
   const { image } = route.params;
+  const navigation = useNavigation<any>();
   const [caption, setCaption] = useState<string>("");
   const auth = getAuth();
 

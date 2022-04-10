@@ -1,12 +1,14 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import fireDB from "../../firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
 import Button from '../../Components/Button';
+import { useNavigation } from '@react-navigation/native';
 
-const RegisterScreen: FC = ({ navigation }) => {
+const RegisterScreen = (): ReactElement => {
 
+  const navigation = useNavigation<any>();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");

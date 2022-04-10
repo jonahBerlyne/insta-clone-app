@@ -2,9 +2,11 @@ import React, { FC, useState, useEffect, ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, Image, Linking, Platform } from 'react-native';
 import * as ImagePicker from "expo-image-picker";
 import { Button } from '../../Components';
+import { useNavigation } from "@react-navigation/native";
 
-const SelectPostScreen = ({ navigation }: {navigation: any}): ReactElement => {
+const SelectPostScreen = (): ReactElement => {
 
+  const navigation = useNavigation<any>();
   const [image, setImage] = useState<string>("");
   const [showView, setShowView] = useState<boolean>(false);
 
