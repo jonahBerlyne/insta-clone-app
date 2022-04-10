@@ -19,9 +19,6 @@ const HomeScreen = ({ navigation }: {navigation: any}): ReactElement => {
   return (
     <View style={styles.container}>
      <Text>Home Screen</Text>
-     <TouchableOpacity onPress={() => navigation.navigate("selectpost")}>
-       <Text>Post an Image</Text>
-     </TouchableOpacity>
      <Text>Log Out:</Text>
      <Button title="Logout" onPress={logout} />
     </View>
