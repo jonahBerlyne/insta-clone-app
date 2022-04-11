@@ -26,7 +26,7 @@ const SharePostScreen = ({ route }: {route: any}): ReactElement => {
       await uploadBytes(uploadTask, image);
       const imgUrl = await getDownloadURL(uploadTask);
       const post: object = {
-        caption: "BB23",
+        caption: "another",
         date: `${date}`,
         image: imgUrl,
       };

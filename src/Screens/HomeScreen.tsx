@@ -1,6 +1,6 @@
 import React, { FC, useState, ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
-import { Button, Post } from '../Components';
+import { Button, Post, Footer } from '../Components';
 import { getAuth, signOut } from 'firebase/auth';
 import fireDB from '../firebaseConfig';
 import { getDocs, collection, query } from 'firebase/firestore';
@@ -17,14 +17,14 @@ const HomeScreen = ({ navigation }: {navigation: any}): ReactElement => {
 
   const auth: any = getAuth();
 
-  const logout = async (): Promise<void> => {
-   try {
-    await signOut(auth);
-    Alert.alert("You've been logged out");
-   } catch (err) {
-    Alert.alert(`Logout error: ${err}`);
-   }
-  }
+  // const logout = async (): Promise<void> => {
+  //  try {
+  //   await signOut(auth);
+  //   Alert.alert("You've been logged out");
+  //  } catch (err) {
+  //   Alert.alert(`Logout error: ${err}`);
+  //  }
+  // }
 
   const [posts, setPosts] = useState<Array<P>>([]);
 
@@ -61,8 +61,8 @@ const HomeScreen = ({ navigation }: {navigation: any}): ReactElement => {
       data={posts}
       renderItem={({item}) => <Post item={item} />}
      />
-     <Text>Log Out:</Text>
-     <Button title="Logout" onPress={logout} />
+     {/* <Button title="Logout" onPress={logout} /> */}
+     <Footer />
     </View>
   );
 }
