@@ -81,7 +81,7 @@ const SelectPostScreen = (): ReactElement => {
 
   return (
     <View style={showView ? styles.container : {display: "none"}}>
-     <Text>New post {typeof navigation}</Text>
+     <Text>New post</Text>
      <Button title="Take a Picture" onPress={takePicture} />
      <Button title="Choose a Picture" onPress={pickImage} />
     </View>

@@ -5,5 +5,6 @@ import ProfileScreen from "./ProfileScreens/ProfileScreen";
 import EditProfileScreen from "./ProfileScreens/EditProfileScreen";
 import SelectPostScreen from "./PostScreens/SelectPostScreen";
 import SharePostScreen from "./PostScreens/SharePostScreen";
+import SearchScreen from "./SearchScreen";
 
-export {LoginScreen, RegisterScreen, HomeScreen, ProfileScreen, EditProfileScreen, SelectPostScreen, SharePostScreen}
+export {LoginScreen, RegisterScreen, HomeScreen, ProfileScreen, EditProfileScreen, SelectPostScreen, SharePostScreen, SearchScreen}
