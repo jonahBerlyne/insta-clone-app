@@ -2,10 +2,11 @@ import React, { FC, useState } from 'react';
 import { ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Button } from '../../Components';
-import fireDB from '../../firebaseConfig';
+import fireDB, { storage } from '../../firebaseConfig';
 import { doc, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useNavigation } from "@react-navigation/native";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const SharePostScreen = ({ route }: {route: any}): ReactElement => {
   const { image } = route.params;
@@ -13,15 +14,21 @@ const SharePostScreen = ({ route }: {route: any}): ReactElement => {
   const [caption, setCaption] = useState<string>("");
   const auth = getAuth();
 
-  const sharePost = async () => {
-    if (caption === "") return;
+  const sharePost = async (): Promise<void> => {
+    // if (caption === "") {
+    //   Alert.alert("Please enter a caption for your post");
+    //   return;
+    // }
     try {
       const userId: string = auth.currentUser!.uid;
       const date: object = new Date();
+      const uploadTask = ref(storage, `${userId}/posts/${date}`);
+      await uploadBytes(uploadTask, image);
+      const imgUrl = await getDownloadURL(uploadTask);
       const post: object = {
-        caption,
+        caption: "BB23",
         date: `${date}`,
-        image,
+        image: imgUrl,
       };
       const docRef = doc(fireDB, "users", userId, "posts", `${date}`);
       await setDoc(docRef, post);

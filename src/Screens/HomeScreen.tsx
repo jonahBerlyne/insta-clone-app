@@ -15,9 +15,9 @@ interface P {
 
 const HomeScreen = ({ navigation }: {navigation: any}): ReactElement => {
 
-  const auth = getAuth();
+  const auth: any = getAuth();
 
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
    try {
     await signOut(auth);
     Alert.alert("You've been logged out");
