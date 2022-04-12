@@ -1,7 +1,8 @@
 import React, { FC, useState, useEffect, ReactElement } from 'react';
 import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import fireDB from "../../firebaseConfig";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import fireDB, { storage } from "../../firebaseConfig";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 import Button from '../../Components/Button';
 import { useNavigation } from '@react-navigation/native';
@@ -12,16 +13,27 @@ const RegisterScreen = (): ReactElement => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const auth = getAuth();
+  const auth: any = getAuth();
+
+  useEffect(() => {
+    console.log(auth);
+  }, []);
 
   const register = async () => {
     if (name && email && password) {
       try {
         const userAuth = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: "https://cdn2.iconfinder.com/data/icons/instagram-outline/19/11-512.png"
+        });
+        const uploadTask = ref(storage, `${userAuth.user.uid}/profilePic`);
+        await uploadBytes(uploadTask, auth.currentUser.photoURL);
         const docRef = doc(fireDB, "users", `${userAuth.user.uid}`);
         const userInfo = {
           id: userAuth.user.uid,
-          name
+          displayName: name,
+          photoURL: "https://cdn2.iconfinder.com/data/icons/instagram-outline/19/11-512.png"
         };
         await setDoc(docRef, userInfo);
         console.log("Registered");

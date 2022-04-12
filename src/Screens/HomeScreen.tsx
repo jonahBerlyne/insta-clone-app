@@ -52,6 +52,7 @@ const HomeScreen = ({ navigation }: {navigation: any}): ReactElement => {
 
   useEffect(() => {
     getPosts(auth.currentUser!.uid);
+    console.log(auth);
   });
 
   return (
