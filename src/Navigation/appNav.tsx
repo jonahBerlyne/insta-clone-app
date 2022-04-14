@@ -3,10 +3,13 @@ import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EditProfileScreen, HomeScreen, ProfileScreen, SelectPostScreen, SharePostScreen, SearchScreen } from '../Screens';
 import { Header, Search, Camera } from '../Components';
+import { getAuth } from 'firebase/auth';
+import { useEffect } from 'react';
 
 const {Navigator, Screen} = createNativeStackNavigator();
 
 const AppNav = (): ReactElement => {
+  const auth = getAuth();
   return (
     <Navigator screenOptions={{headerBackground: () => <Header searchbar={null} />}}>
       <Screen name="home" component={HomeScreen} options={{headerTitle: "Home", headerRight: () => {
@@ -18,7 +21,7 @@ const AppNav = (): ReactElement => {
         );
       }}} />
       <Screen name="search" component={SearchScreen} options={{headerShown: false}} />
-      <Screen name="profile" component={ProfileScreen} options={{headerTitle: "Profile"}} />
+      <Screen name="profile" component={ProfileScreen} options={{headerTitle: "Profile"}} initialParams={{id: auth.currentUser?.uid}} />
       <Screen name="editprofile" component={EditProfileScreen} options={{headerTitle: "Edit Profile"}} />
       <Screen name="selectpost" component={SelectPostScreen} options={{headerTitle: "New post"}} />
       <Screen name="sharepost" component={SharePostScreen} options={{headerTitle: "Share post"}} />
