@@ -12,6 +12,10 @@ const ProfileScreen = ({ route }: {route: any}): ReactElement => {
 
   useEffect(() => {
     getUserInfo();
+
+    return () => {
+      setUserInfo(null);
+    }
   }, []);
 
   const getUserInfo = async () => {

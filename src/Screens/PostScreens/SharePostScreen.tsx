@@ -7,6 +7,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useNavigation } from "@react-navigation/native";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useEffect } from 'react';
 
 const SharePostScreen = ({ route }: {route: any}): ReactElement => {
   const { image } = route.params;
@@ -14,11 +15,17 @@ const SharePostScreen = ({ route }: {route: any}): ReactElement => {
   const [caption, setCaption] = useState<string>("");
   const auth = getAuth();
 
+  useEffect(() => {
+    return () => {
+      setCaption("");
+    }
+  });
+
   const sharePost = async (): Promise<void> => {
-    // if (caption === "") {
-    //   Alert.alert("Please enter a caption for your post");
-    //   return;
-    // }
+    if (caption === "") {
+      Alert.alert("Please enter a caption for your post");
+      return;
+    }
     try {
       const userId: string = auth.currentUser!.uid;
       const date: object = new Date();
@@ -26,7 +33,7 @@ const SharePostScreen = ({ route }: {route: any}): ReactElement => {
       await uploadBytes(uploadTask, image);
       const imgUrl = await getDownloadURL(uploadTask);
       const post: object = {
-        caption: "another",
+        caption,
         date: `${date}`,
         image: imgUrl,
       };
