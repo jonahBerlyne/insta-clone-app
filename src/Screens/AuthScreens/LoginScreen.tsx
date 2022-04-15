@@ -4,6 +4,7 @@ import fireDB from "../../firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import Button from '../../Components/Button';
 import { useNavigation } from "@react-navigation/native";
+import { useEffect } from 'react';
 
 const LoginScreen = (): ReactElement => {
 
@@ -11,6 +12,13 @@ const LoginScreen = (): ReactElement => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const auth = getAuth();
+
+  useEffect(() => {
+    return () => {
+      setEmail("");
+      setPassword("");
+    }
+  });
   
   const login = async () => {
     if (email && password) {

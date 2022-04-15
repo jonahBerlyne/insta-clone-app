@@ -16,8 +16,12 @@ const RegisterScreen = (): ReactElement => {
   const auth: any = getAuth();
 
   useEffect(() => {
-    console.log(auth);
-  }, []);
+    return () => {
+      setName("");
+      setEmail("");
+      setPassword("");
+    }
+  });
 
   const register = async () => {
     if (name && email && password) {
